@@ -6,7 +6,7 @@
  * Return: ul
  */
 
-unsigned long int get_num_of_tokens(const char *string)
+unsigned long int get_num_of_tokens(const char *string, char delim)
 {
 
 
@@ -15,7 +15,7 @@ unsigned long int get_num_of_tokens(const char *string)
 
 	ptr = strdup(string);
 
-	while ((ptr = strchr(ptr, ' ')) != NULL)
+	while ((ptr = strchr(ptr, delim)) != NULL)
 	{
 		count++;
 		ptr++;
@@ -36,10 +36,9 @@ unsigned long int get_num_of_tokens(const char *string)
  * Return: Pointer to array of strings
  */
 
-char **str_to_array(char *buffer, unsigned long int n)
+char **str_to_array(char *buffer, unsigned long int n, char *delim)
 {
 
-	char *s = " \n";
 	char *token;
 	char **array;
 	int i = 0;
@@ -48,13 +47,13 @@ char **str_to_array(char *buffer, unsigned long int n)
 	array = malloc(sizeof(char *) * n);
 
 	/* get the first token */
-	token = strtok(buffer, s);
+	token = strtok(buffer, delim);
 
 	/* walk through other tokens */
 	while (token)
 	{
 		array[i] = strdup(token);
-		token = strtok(NULL, s);
+		token = strtok(NULL, delim);
 		i++;
 	}
 
@@ -78,59 +77,48 @@ char *get_input_str(void)
 	getline(&str, &len, stdin);
 
 	if (strcmp(str, "\n") == 0)
+	{
+		free(str);
 		return (NULL);
+	}
 
 	return (str);
 }
 
-
 /**
- * main - Shell Main
- * Segmentation Fault cuando num of tokens es impar
- * Return: 0 on success
- * Fails when input NULL
- * Add print eror when it fails to run command
+ * NUm of tokens arrreglar
  */
 
-int main(void)
+char *check_cmd(char *s)
 {
-	char *inputstr;
-	char **array;
-	unsigned long int num_of_tokens;
-	pid_t child_id;
-	int status;
+	unsigned long int i;
+	char *test = NULL;
+	char **patharray;
+	unsigned long int num_of_tokens = 10;
+	struct stat st;
 
+	if (stat(s, &st) == 0)
+		return (s);
 
-	while (1)
+	patharray = getpatharray();
+
+	for (i = 0; i < num_of_tokens; i++)
 	{
+		test = malloc(strlen(patharray[i]) + strlen(s) + 2);
+		test[0] = 0;
+		strcat(test,patharray[i]);
+		strcat(test, "/");
+		strcat(test, s);
 
-		/* Gets input string*/
-		inputstr = get_input_str();
-		/*printf("%s\n", inputstr);*/
-
-		if (inputstr)
+		if (stat(test, &st) == 0)
 		{
-
-			/*Gets num of tokens*/
-			num_of_tokens = get_num_of_tokens(inputstr);
-
-			/*Separate input string into array of args*/
-			array = str_to_array(inputstr, num_of_tokens);
-
-			/*Checks if input string or first arg of array equals "exit"*/
-			if ((strcmp(inputstr, "exit\n") == 0) || (strcmp(array[0], "exit") == 0))
-				return (0);
-
-			/*forks and if child execute command, in case of no command returns 0*/
-			child_id = fork();
-			wait(&status);
-			if (child_id == 0)
-			{
-				execve(array[0], array, NULL);
-				printf("Error: Command not found\n");
-				return (0);
-			}
+			free_grid(patharray, num_of_tokens);
+			free(s);
+			return (test);
 		}
 	}
-	return (0);
+	
+	free_grid(patharray, num_of_tokens);
+	return (NULL);
+
 }

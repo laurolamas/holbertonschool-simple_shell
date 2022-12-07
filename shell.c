@@ -44,7 +44,7 @@ char **str_to_array(char *buffer, unsigned long int n, char *delim)
 	int i = 0;
 
 	/*Allocate memory for array*/
-	array = malloc(sizeof(char *) * n);
+	array = malloc(sizeof(char *) * (n + 1));
 
 	/* get the first token */
 	token = strtok(buffer, delim);
@@ -56,6 +56,7 @@ char **str_to_array(char *buffer, unsigned long int n, char *delim)
 		token = strtok(NULL, delim);
 		i++;
 	}
+	array[i] = NULL;
 
 	return (array);
 }

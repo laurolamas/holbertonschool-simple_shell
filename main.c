@@ -10,7 +10,6 @@
 
 int main(void)
 {
-	unsigned long int i;
 	char *inputstr;
 	char **array;
 	unsigned long int num_of_tokens;
@@ -42,10 +41,6 @@ int main(void)
 				wait(&status);
 				if (child_id == 0)
 				{
-					for (i = 0; i < num_of_tokens; i++)
-						printf("array[%ld] - %s\n", i, array[i]);
-					for (i = 0; environ[i]; i++)
-						printf("%s\n", environ[i]);
 					execve(array[0], array, environ);
 				}
 			}

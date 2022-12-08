@@ -15,6 +15,7 @@ int main(void)
 	unsigned long int num_of_tokens;
 	pid_t child_id;
 	int status;
+	char **patharray = getpatharray();
 
 	while (1)
 	{
@@ -29,11 +30,12 @@ int main(void)
 			if ((strcmp(inputstr, "exit\n") == 0) || (strcmp(array[0], "exit") == 0))
 			{
 				free_grid(array, num_of_tokens);
+				free_grid(patharray, 10);
 				free(inputstr);
 				return (0);
 			}
 
-			array[0] = check_cmd(array[0]);
+			array[0] = check_cmd(array, patharray);
 
 			if (array[0])
 			{
@@ -51,6 +53,7 @@ int main(void)
 		free_grid(array, num_of_tokens);
 		free(inputstr);
 	}
+	free_grid(patharray, 10);
 	return (0);
 }
 

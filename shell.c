@@ -12,8 +12,10 @@ unsigned long int get_num_of_tokens(const char *string, char delim)
 
 	int count = 1;
 	char *ptr = NULL;
+	char *ptrcpy = NULL;
 
 	ptr = strdup(string);
+	ptrcpy = ptr;
 
 	while ((ptr = strchr(ptr, delim)) != NULL)
 	{
@@ -21,7 +23,7 @@ unsigned long int get_num_of_tokens(const char *string, char delim)
 		ptr++;
 	}
 
-	free(ptr);
+	free(ptrcpy);
 
 	return (count);
 }
@@ -83,6 +85,8 @@ char *get_input_str(void)
 		return (NULL);
 	}
 
+	str = strtok(str, "\n");
+
 	return (str);
 }
 
@@ -90,36 +94,30 @@ char *get_input_str(void)
  * NUm of tokens arrreglar
  */
 
-char *check_cmd(char *s)
+char *check_cmd(char **args, char **patharray)
 {
 	unsigned long int i;
-	char *test = NULL;
-	char **patharray;
+	char test[1024];
 	unsigned long int num_of_tokens = 10;
 	struct stat st;
 
-	if (stat(s, &st) == 0)
-		return (s);
-
-	patharray = getpatharray();
+	if (stat(args[0], &st) == 0)
+		return (args[0]);
 
 	for (i = 0; i < num_of_tokens; i++)
 	{
-		test = malloc(strlen(patharray[i]) + strlen(s) + 2);
-		test[0] = 0;
-		strcat(test,patharray[i]);
+		strcpy(test, patharray[i]);
 		strcat(test, "/");
-		strcat(test, s);
+		strcat(test, args[0]);
 
 		if (stat(test, &st) == 0)
 		{
-			free_grid(patharray, num_of_tokens);
-			free(s);
-			return (test);
+			free(args[0]);
+			args[0] = strdup(test);
+			return (args[0]);
 		}
 	}
-	
-	free_grid(patharray, num_of_tokens);
+	free(args[0]);
 	return (NULL);
 
 }

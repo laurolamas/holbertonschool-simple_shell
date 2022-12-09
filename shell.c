@@ -103,6 +103,7 @@ char *check_cmd(char **args, char **patharray)
 	}
 	free(path);
 	free(args[0]);
+	printf("Error: Command not found\n");
 	return (NULL);
 
 }

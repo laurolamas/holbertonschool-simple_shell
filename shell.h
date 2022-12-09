@@ -9,8 +9,6 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-#define PATH_MAX_TOKENS 10
-
 
 typedef unsigned long int uli;
 
@@ -24,5 +22,6 @@ char *check_cmd(char **args, char **patharray);
 void free_grid(char **grid, int height);
 char **getpatharray(void);
 char *getpath(void);
+void free_all(char **args, uli nargs, char **path, uli npath, char *input);
 
 #endif

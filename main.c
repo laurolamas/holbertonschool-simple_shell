@@ -25,7 +25,7 @@ int main(void)
 		if (inputstr)
 		{
 			num_of_tokens = get_num_of_tokens(inputstr, ' ');
-			array = str_to_array(inputstr, num_of_tokens, " \n");
+			array = str_to_array(inputstr, num_of_tokens, " \n\t");
 			if ((strcmp(inputstr, "exit\n") == 0) || (strcmp(array[0], "exit") == 0))
 			{
 				free_all(array, num_of_tokens, patharray, path_tokens, inputstr);
@@ -38,10 +38,12 @@ int main(void)
 				child_id = fork();
 				wait(&status);
 				if (child_id == 0)
+				{
 					execve(array[0], array, environ);
+					printf("Error: Exec failed\n");
+					return (0);
+				}
 			}
-			else
-				printf("Error: Command not found\n");
 
 		free_grid(array, num_of_tokens);
 		free(inputstr);

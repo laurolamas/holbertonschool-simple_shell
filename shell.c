@@ -3,6 +3,8 @@
 /**
  * get_num_of_tokens - Gets number of words in string
  * @string: string
+ * @delim: delimiter
+ *
  * Return: ul
  */
 
@@ -34,6 +36,7 @@ unsigned long int get_num_of_tokens(const char *string, char delim)
  *
  * @buffer: buffer
  * @n: Num of tokens
+ * @delim: delimiter
  *
  * Return: Pointer to array of strings
  */
@@ -64,7 +67,10 @@ char **str_to_array(char *buffer, unsigned long int n, char *delim)
 }
 
 /**
- * NUm of tokens arrreglar
+ * check_cmd - check cmd existence
+ *@args: arguments
+ *@patharray: pointer to patharray pointepointer to patharray pointerr
+ *Return: args or NULL
  */
 
 char *check_cmd(char **args, char **patharray)

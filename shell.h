@@ -9,6 +9,12 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
+#define PATH_MAX_TOKENS 10
+
+
+typedef unsigned long int uli;
+
+
 extern char **environ;
 
 unsigned long int get_num_of_tokens(const char *string, char delim);

@@ -1,10 +1,10 @@
 #include "shell.h"
 
-void free_all(char **args, unsigned long int nargs, char **path, unsigned long int npath, char *inputstr)
+void free_all(char **args, uli nargs, char **path, uli npath, char *input)
 {
 	free_grid(args, nargs);
 	free_grid(path, npath);
-	free(inputstr);
+	free(input);
 }
 
 
@@ -20,9 +20,9 @@ int main(void)
 {
 	char *inputstr;
 	char **array;
-	unsigned long int num_of_tokens;
+	uli num_of_tokens;
 	pid_t child_id;
-	int status;
+	int status = 0;
 	char **patharray = getpatharray();
 
 	while (1)
@@ -34,11 +34,8 @@ int main(void)
 			array = str_to_array(inputstr, num_of_tokens, " \n");
 			if ((strcmp(inputstr, "exit\n") == 0) || (strcmp(array[0], "exit") == 0))
 			{
-				free_all(array, num_of_tokens, patharray, 10, inputstr);
-				/**free_grid(array, num_of_tokens);
-				free_grid(patharray, 10);
-				free(inputstr);*/
-				return (0);
+				free_all(array, num_of_tokens, patharray, PATH_MAX_TOKENS, inputstr);
+				return (WEXITSTATUS(status));
 			}
 
 			array[0] = check_cmd(array, patharray);

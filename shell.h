@@ -17,7 +17,7 @@ extern char **environ;
 
 unsigned long int get_num_of_tokens(const char *string, char delim);
 char **str_to_array(char *buffer, unsigned long int n, char *delim);
-char *get_input_str(void);
+char *get_input_str(int mode);
 char *check_cmd(char **args, char **patharray);
 void free_grid(char **grid, int height);
 char **getpatharray(void);

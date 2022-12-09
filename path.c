@@ -34,11 +34,11 @@ char *getpath(void)
 	for (i = 0; environ[i]; i++)
 	{
 	/*envcpy = strdup(environ[i]);*/
-		strcpy(envcpy, environ[i]);
+		_strcpy(envcpy, environ[i]);
 
-		if (strcmp((strtok(envcpy, "=")), "PATH") == 0)
+		if (_strcmp((strtok(envcpy, "=")), "PATH") == 0)
 		{
-			path = strdup(strtok(NULL, "\n"));
+			path = _strdup(strtok(NULL, "\n"));
 			/*free(envcpy);*/
 			return (path);
 		}

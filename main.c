@@ -26,7 +26,7 @@ int main(void)
 		{
 			num_of_tokens = get_num_of_tokens(inputstr, ' ');
 			array = str_to_array(inputstr, num_of_tokens, " \n");
-			if ((strcmp(inputstr, "exit\n") == 0) || (strcmp(array[0], "exit") == 0))
+			if ((_strcmp(inputstr, "exit\n") == 0) || (_strcmp(array[0], "exit") == 0))
 			{
 				free_all(array, num_of_tokens, patharray, path_tokens, inputstr);
 				free(path);

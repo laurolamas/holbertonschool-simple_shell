@@ -131,11 +131,15 @@ char *check_cmd(char **args, char **patharray)
 {
 	unsigned long int i;
 	char test[1024];
-	unsigned long int num_of_tokens = 10;
+	char *path;
+	unsigned long int num_of_tokens;
 	struct stat st;
 
 	if (stat(args[0], &st) == 0)
 		return (args[0]);
+
+	path = getpath();
+	num_of_tokens = get_num_of_tokens(path, ':');
 
 	for (i = 0; i < num_of_tokens; i++)
 	{
@@ -146,10 +150,12 @@ char *check_cmd(char **args, char **patharray)
 		if (stat(test, &st) == 0)
 		{
 			free(args[0]);
+			free(path);
 			args[0] = strdup(test);
 			return (args[0]);
 		}
 	}
+	free(path);
 	free(args[0]);
 	return (NULL);
 

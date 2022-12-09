@@ -24,6 +24,8 @@ int main(void)
 	pid_t child_id;
 	int status = 0;
 	char **patharray = getpatharray();
+	char *path = getpath();
+	uli path_tokens = get_num_of_tokens(path, ':');
 
 	while (1)
 	{
@@ -34,7 +36,8 @@ int main(void)
 			array = str_to_array(inputstr, num_of_tokens, " \n");
 			if ((strcmp(inputstr, "exit\n") == 0) || (strcmp(array[0], "exit") == 0))
 			{
-				free_all(array, num_of_tokens, patharray, PATH_MAX_TOKENS, inputstr);
+				free_all(array, num_of_tokens, patharray, path_tokens, inputstr);
+				free(path);
 				return (WEXITSTATUS(status));
 			}
 
@@ -54,7 +57,7 @@ int main(void)
 		free(inputstr);
 		}
 	}
-	free_grid(patharray, 10);
+	free_grid(patharray, path_tokens);
 	return (0);
 }
 

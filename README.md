@@ -14,8 +14,8 @@ Features
 
 Usage
 
-To use the program, simply compile it using a C compiler, such as gcc, and run the resulting executable file. 
-The program will start by printing a prompt, $, and waiting for the user to enter a command. 
+To use the program, simply compile it using a C compiler, such as gcc, and run the resulting executable file.
+The program will start by printing a prompt, $, and waiting for the user to enter a command.
 The user can enter any valid command, such as ls or pwd, and the program will search for it in the directories specified by the PATH environment variable.
 If the command is found, the program will create a child process to execute it. If the command is not found, an error message will be printed.
 

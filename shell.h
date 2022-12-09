@@ -8,8 +8,6 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-#define PATH_MAX_TOKENS 10
-
 
 typedef unsigned long int uli;
 
@@ -18,17 +16,20 @@ extern char **environ;
 
 unsigned long int get_num_of_tokens(const char *string, char delim);
 char **str_to_array(char *buffer, unsigned long int n, char *delim);
-char *get_input_str(void);
+char *get_input_str(int mode);
 char *check_cmd(char **args, char **patharray);
 void free_grid(char **grid, int height);
 char **getpatharray(void);
 char *getpath(void);
 void free_all(char **args, uli nargs, char **path, uli npath, char *input);
+<<<<<<< HEAD
 
 /*aux function*/
 int _strcmp(const char *str1, const char *str2);
 char *_strcpy(char *dest, const char *src);
 char *_strdup(const char *str);
 char *_strcat(char *dest, char *src);
+=======
+>>>>>>> 7f9d858afc7fbcc816d92ad51fb89d22426efcd6
 
 #endif

@@ -1,5 +1,24 @@
 #include "shell.h"
 
+int fork_and_exec(char **args)
+{
+	pid_t id;
+	int status;
+
+	id = fork();
+
+	wait(&status);
+
+	if (id == 0)
+	{
+		execve(args[0], args, environ);
+		printf("Error: Exec failed\n");
+		return (0);
+	}
+
+	return (status);
+}
+
 /**
  * main - Shell Main
  * Segmentation Fault cuando num of tokens es impar
@@ -13,41 +32,46 @@ int main(void)
 	char *inputstr;
 	char **array;
 	uli num_of_tokens;
-	pid_t child_id;
 	int status = 0;
 	char **patharray = getpatharray();
 	char *path = getpath();
 	uli path_tokens = get_num_of_tokens(path, ':');
+	int mode = 1;
 
-	while (1)
+	free(path);
+
+	while (mode)
 	{
-		inputstr = get_input_str();
+		mode = isatty(STDIN_FILENO);
+
+		inputstr = get_input_str(mode);
+
 		if (inputstr)
 		{
 			num_of_tokens = get_num_of_tokens(inputstr, ' ');
+<<<<<<< HEAD
 			array = str_to_array(inputstr, num_of_tokens, " \n");
 			if ((_strcmp(inputstr, "exit\n") == 0) || (_strcmp(array[0], "exit") == 0))
+=======
+			array = str_to_array(inputstr, num_of_tokens, " \n\t");
+
+			if ((strcmp(inputstr, "exit\n") == 0) || (strcmp(array[0], "exit") == 0))
+>>>>>>> 7f9d858afc7fbcc816d92ad51fb89d22426efcd6
 			{
 				free_all(array, num_of_tokens, patharray, path_tokens, inputstr);
-				free(path);
 				return (WEXITSTATUS(status));
 			}
-			array[0] = check_cmd(array, patharray);
-			if (array[0])
-			{
-				child_id = fork();
-				wait(&status);
-				if (child_id == 0)
-					execve(array[0], array, environ);
-			}
-			else
-				printf("Error: Command not found\n");
 
-		free_grid(array, num_of_tokens);
-		free(inputstr);
+			array[0] = check_cmd(array, patharray);
+
+			if (array[0])
+				status = fork_and_exec(array);
+
+			free_grid(array, num_of_tokens);
+			free(inputstr);
 		}
 	}
+	
 	free_grid(patharray, path_tokens);
 	return (0);
 }
-

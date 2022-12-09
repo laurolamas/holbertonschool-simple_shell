@@ -42,12 +42,13 @@ char *remove_spaces_from_beginning(char *str)
  * Return: string
  */
 
-char *get_input_str(void)
+char *get_input_str(int mode)
 {
 	char *str = NULL;
 	size_t len = 1;
 
-	printf("$ ");
+	if (mode)
+		printf("$ ");
 
 	getline(&str, &len, stdin);
 

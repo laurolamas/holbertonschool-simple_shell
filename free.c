@@ -18,3 +18,21 @@ void free_grid(char **grid, int height)
 
 	free(grid);
 }
+
+/**
+ * free_all - free all
+ *
+ * @args: args
+ * @nargs: nargs
+ * @path: path
+ * @npath: npath
+ * @input: input
+ *
+ */
+
+void free_all(char **args, uli nargs, char **path, uli npath, char *input)
+{
+	free_grid(args, nargs);
+	free_grid(path, npath);
+	free(input);
+}

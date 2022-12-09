@@ -1,13 +1,5 @@
 #include "shell.h"
 
-void free_all(char **args, uli nargs, char **path, uli npath, char *input)
-{
-	free_grid(args, nargs);
-	free_grid(path, npath);
-	free(input);
-}
-
-
 /**
  * main - Shell Main
  * Segmentation Fault cuando num of tokens es impar
@@ -40,9 +32,7 @@ int main(void)
 				free(path);
 				return (WEXITSTATUS(status));
 			}
-
 			array[0] = check_cmd(array, patharray);
-
 			if (array[0])
 			{
 				child_id = fork();

@@ -31,7 +31,7 @@ To exit the program, the user can enter the exit command at the prompt. This wil
 ### Limitations
 
 This program is a simple implementation of a shell, and it has several limitations.
-For example, it does not support command history or command completion, and it does not handle signals or other advanced features![Untitled (1)](https://user-images.githubusercontent.com/113919575/206880125-208ce7fa-ebd9-4b2f-9fe6-0fac86e45fa6.jpg)
+For example, it does not support command history or command completion, and it does not handle signals or other advanced features
 
 It is intended to provide a basic understanding of how a shell works, and it should not be used as a replacement for a full-featured shell.
 ### Basic flow chart

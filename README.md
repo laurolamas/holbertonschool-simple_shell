@@ -37,4 +37,5 @@ It is intended to provide a basic understanding of how a shell works, and it sho
 ### Basic flow chart
 
 
-![Uploading Untitled (1).jpg…]()
+![Untitled (1)](https://user-images.githubusercontent.com/113919575/206880182-6b07a688-5db3-4baf-bef3-c169e8d5ce6b.jpg)
+

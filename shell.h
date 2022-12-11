@@ -22,14 +22,11 @@ void free_grid(char **grid, int height);
 char **getpatharray(void);
 char *getpath(void);
 void free_all(char **args, uli nargs, char **path, uli npath, char *input);
-<<<<<<< HEAD
 
 /*aux function*/
 int _strcmp(const char *str1, const char *str2);
 char *_strcpy(char *dest, const char *src);
 char *_strdup(const char *str);
 char *_strcat(char *dest, char *src);
-=======
->>>>>>> 7f9d858afc7fbcc816d92ad51fb89d22426efcd6
 
 #endif

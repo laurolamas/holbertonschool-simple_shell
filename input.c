@@ -54,7 +54,7 @@ char *get_input_str(int mode)
 
 	str = remove_spaces_from_beginning(str);
 
-	if (strcmp(str, "\n") == 0)
+	if (_strcmp(str, "\n") == 0)
 	{
 		free(str);
 		return (NULL);

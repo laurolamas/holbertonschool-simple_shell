@@ -35,7 +35,7 @@ Compilation to start the shell: gcc -Wall -Wextra -Werror -pedant *.c -o hsh.
 
 .SH EXAMPLES
 
-	commands with and without flags - Example: "ls -l" "pwd" 
+	commands with and without flags - Example: "ls -l" "pwd"
 
 	commands with path - Example: "/bin/ls -l" "/bin/pwd"
 

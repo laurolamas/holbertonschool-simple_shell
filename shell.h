@@ -24,6 +24,7 @@ char *getpath(void);
 void free_all(char **args, uli nargs, char **path, uli npath, char *input);
 
 /*aux function*/
+int fork_and_exec(char **args);
 int _strcmp(const char *str1, const char *str2);
 char *_strcpy(char *dest, const char *src);
 char *_strdup(const char *str);

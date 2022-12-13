@@ -38,6 +38,7 @@ char *remove_spaces_from_beginning(char *str)
 
 /**
  * get_input_str - Gets string prom stdin input
+ *@mode: int = 1
  *
  * Return: string
  */
@@ -46,11 +47,13 @@ char *get_input_str(int mode)
 {
 	char *str = NULL;
 	size_t len = 1;
+	char characters;
 
 	if (mode)
 		printf("$ ");
 
-	getline(&str, &len, stdin);
+	characters = getline(&str, &len, stdin);
+	(characters == -1) ? free(str), exit(0) : (void) 0;/*chec EOF (CRL + D*/
 
 	str = remove_spaces_from_beginning(str);
 

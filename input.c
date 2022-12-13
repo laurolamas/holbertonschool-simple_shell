@@ -53,7 +53,13 @@ char *get_input_str(int mode)
 		printf("$ ");
 
 	characters = getline(&str, &len, stdin);
-	(characters == -1) ? free(str), exit(0) : (void) 0;/*chec EOF (CRL + D*/
+
+	if (characters == -1)
+	{
+		free(str);
+		return(strdup("exit"));
+	}
+	/*chec EOF (CRL + D*/
 
 	str = remove_spaces_from_beginning(str);
 

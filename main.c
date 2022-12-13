@@ -1,12 +1,12 @@
 #include "shell.h"
+
 /**
  * main - Shell Main
- * Segmentation Fault cuando num of tokens es impar
- * Return: 0 on success
- * Fails when input NULL
- * Add print eror when it fails to run command
+ *
+ * Return: Exit status of last command used, or 0 if no command passed.
  */
-int main(void)
+
+int main(__attribute__((unused)) int argc, char **argv)
 {
 	char *inputstr, **array, *path = getpath();
 	char **patharray = getpatharray();
@@ -28,7 +28,7 @@ int main(void)
 				free_all(array, num_of_tokens, patharray, path_tokens, inputstr);
 				return (WEXITSTATUS(status));
 			}
-			array[0] = check_cmd(array, patharray);
+			array[0] = check_cmd(array, patharray, argv[0]);
 			if (array[0])
 				status = fork_and_exec(array);
 			free_grid(array, num_of_tokens);

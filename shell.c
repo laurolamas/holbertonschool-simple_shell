@@ -73,7 +73,7 @@ char **str_to_array(char *buffer, unsigned long int n, char *delim)
  *Return: args or NULL
  */
 
-char *check_cmd(char **args, char **patharray)
+char *check_cmd(char **args, char **patharray, char *argv0)
 {
 	unsigned long int i;
 	char test[1024];
@@ -101,9 +101,9 @@ char *check_cmd(char **args, char **patharray)
 			return (args[0]);
 		}
 	}
+	fprintf(stderr, "%s: 1: %s: not found\n", argv0, args[0]);
 	free(path);
 	free(args[0]);
-	printf("Error: Command not found\n");
 	return (NULL);
 
 }
